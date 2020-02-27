@@ -3,9 +3,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const {Docker} = require('node-docker-api');
 
+let shell = require('shelljs');
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+shell.exec('docker build -t compileAndRunDocker .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -15,12 +19,39 @@ app.get("/test", (request, response) => {
 app.post("/compilecpp", (request, response) => {
     console.log("Request to compile C++");
 
-    let compilation;
+    const createError = shell.touch('toCompile.cpp').stderr;
+    if (createError){
+        console.log("Could not create file: " + createError);
+    }
+
+    const copyError = shell.exec( "\"" + response.data.toCompile + "\"" + " > toCompile.cpp", {silent: true}).stderr;
+    if (copyError){
+        console.log("Could not add content to file: " + copyError);
+    }
+
+    if (!copyError && ! createError){
+        const {output, error, code} = shell.exec("docker run -it --rm --name compiling compileAndRunDocker", {silent: true});
+        if (!error && output){
+            response.status(200);
+            response.json({result: output});
+        }
+        else{
+            response.status(406);
+            response.json({error: error});
+        }
+    }
+    else{
+        response.status(501);
+        response.json({error: {createError: createError, copyError: copyError}});
+    }
+
+
+    /*let compilation;
     let run;
 
     let _container;
 
-    const docker = new Docker({socketPath:'tcp://0.0.0.0:2375/var/run/docker.sock'});
+    const docker = new Docker({socketPath:'var/run/docker.sock'});
 
     docker.container.create({
         Image: 'archlinux',
@@ -73,7 +104,7 @@ app.post("/compilecpp", (request, response) => {
             console.log(err);
             response.status(500);
             response.json({error: err});
-        });
+        });*/
 });
 
 app.listen(8080);
