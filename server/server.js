@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 console.log("Test");
-shell.exec('docker build -t my-gcc-app .');
+shell.exec('docker build -t my-gcc-app ./dockers');
 
 app.get("/test", (request, response) => {
     response.status(200);
