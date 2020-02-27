@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-shell.exec('docker build -t compileAndRunDocker .');
+shell.exec('docker build -t my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -18,6 +18,8 @@ app.get("/test", (request, response) => {
 
 app.post("/compilecpp", (request, response) => {
     console.log("Request to compile C++");
+
+    shell.cd("dockers");
 
     const createError = shell.touch('toCompile.cpp').stderr;
     if (createError){
@@ -29,8 +31,10 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not add content to file: " + copyError);
     }
 
+    shell.cd("..");
+
     if (!copyError && ! createError){
-        const {output, error, code} = shell.exec("docker run -it --rm --name compiling compileAndRunDocker", {silent: true});
+        const {output, error, code} = shell.exec("docker run -it --rm --name compiling my-gcc-app", {silent: true});
         if (!error && output){
             response.status(200);
             response.json({result: output});
