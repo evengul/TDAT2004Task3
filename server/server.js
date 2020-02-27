@@ -49,6 +49,10 @@ app.post("/compilecpp", (request, response) => {
         response.json({error: {createError: createError, copyError: copyError}});
     }
 
+    shell.cd("dockers");
+    shell.rm('toCompile.cpp');
+    shell.cd("..");
+
 
     /*let compilation;
     let run;
