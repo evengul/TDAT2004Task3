@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 console.log("Test");
-shell.exec('docker build -t my-gcc-app ./dockers');
+shell.cd('dockers');
+shell.exec('docker build -t my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -18,8 +19,6 @@ app.get("/test", (request, response) => {
 
 app.post("/compilecpp", (request, response) => {
     console.log("Request to compile C++");
-
-    shell.cd("dockers");
 
     const createError = shell.touch('toCompile.cpp').stderr;
     if (createError){
