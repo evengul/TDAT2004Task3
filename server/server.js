@@ -7,6 +7,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get("/test", (request, response) => {
+    response.status(200);
+    response.json({test: "Test"});
+});
+
 app.post("/compilecpp", (request, response) => {
     console.log("Request to compile C++");
 
@@ -15,7 +20,7 @@ app.post("/compilecpp", (request, response) => {
 
     let _container;
 
-    const docker = new Docker({socketPath:'/var/run/docker.sock'});
+    const docker = new Docker({socketPath:'tcp://0.0.0.0:2375/var/run/docker.sock'});
 
     docker.container.create({
         Image: 'archlinux',
