@@ -24,7 +24,7 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not create file: " + createError);
     }
 
-    const copyError = shell.exec( "echo \"" + request.body.toCompile + "\"" + " >> toCompile.cpp").stderr;
+    const copyError = shell.exec( "echo \"" + request.body.toCompile + "\"" + " >| toCompile.cpp").stderr;
     if (copyError){
         console.log("Could not add content to file: " + copyError);
     }
