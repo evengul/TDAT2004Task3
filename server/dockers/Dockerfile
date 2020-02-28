@@ -7,6 +7,7 @@ RUN apt update && apt upgrade -y
 
 RUN apt install build-essential -y
 
+RUN ls
 RUN gcc -o compiled toCompile.cpp
 RUN ls
 CMD ["./compiled"]
