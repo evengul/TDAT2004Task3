@@ -32,6 +32,7 @@ app.post("/compilecpp", (request, response) => {
     shell.exec('docker build -t my-gcc-app .');
 
     if (!copyError && ! createError){
+        console.log("Now running the docker file");
         const {output, error, code} = shell.exec("docker run my-gcc-app");
         console.log(output);
         console.log(error);
@@ -51,7 +52,6 @@ app.post("/compilecpp", (request, response) => {
     }
     shell.exec('ls');
     shell.exec('cat toCompile.cpp');
-    shell.rm('toCompile.cpp');
 });
 
 app.listen(8080);
