@@ -10,7 +10,7 @@ app.use(cors());
 
 console.log("Test");
 shell.cd('dockers');
-//shell.exec('docker build -t my-gcc-app .');
+shell.exec('docker build -t my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -32,9 +32,6 @@ app.post("/compilecpp", (request, response) => {
 
     if (!copyError && ! createError){
         const {output, error, code} = shell.exec("docker run hello-world");
-        console.log(output);
-        console.log(error);
-        console.log(code);
         if (!error && output){
             response.status(200);
             response.json({result: output});
@@ -48,7 +45,6 @@ app.post("/compilecpp", (request, response) => {
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
-    shell.exec("cat toCompile.cpp");
     shell.rm('toCompile.cpp');
 });
 

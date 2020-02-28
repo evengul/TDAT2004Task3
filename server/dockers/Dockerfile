@@ -1,6 +1,11 @@
-FROM gcc:4.9
+FROM ubuntu:18.04
+
+RUN sudo apt-get gcc
+
+RUN sudo apt update && sudo apt upgrade -y
 
 COPY . /usr/home/TDAT2004Task3/server/dockers
 WORKDIR /usr/home/TDAT2004Task3/server/dockers
-RUN gcc -o compiled toCompile.cpp
-CMD ["./compiled"]
+
+CMD gcc -o compiled toCompile.cpp
+CMD ./compiled
