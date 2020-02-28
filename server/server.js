@@ -31,7 +31,10 @@ app.post("/compilecpp", (request, response) => {
     }
 
     if (!copyError && ! createError){
-        const {output, error, code} = shell.exec("docker run hello-world");
+        const {output, error, code} = shell.exec("docker run my-gcc-app");
+        console.log(output);
+        console.log(error);
+        console.log(code);
         if (!error && output){
             response.status(200);
             response.json({result: output});
