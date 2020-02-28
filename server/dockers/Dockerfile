@@ -4,4 +4,4 @@ RUN apt-get update && apt-get install -y build-essential git cmake autoconf libt
 
 RUN cmake
 
-CMD ["./compiled"]
+RUN ./compiled
