@@ -12,4 +12,4 @@ RUN cmake --build .
 
 RUN ls
 
-RUN ./compiled
+CMD["./compiled"]
