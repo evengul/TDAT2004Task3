@@ -10,7 +10,7 @@ app.use(cors());
 
 console.log("Test");
 shell.cd('dockers');
-shell.exec('docker build -t my-gcc-app .');
+//shell.exec('docker build -t my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -30,10 +30,8 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not add content to file: " + copyError);
     }
 
-    shell.cd("..");
-
     if (!copyError && ! createError){
-        const {output, error, code} = shell.exec("docker run -it --rm --name compiling my-gcc-app", {silent: true});
+        const {output, error, code} = shell.exec("docker run hello-world", {silent: true});
         if (!error && output){
             response.status(200);
             response.json({result: output});
@@ -48,70 +46,7 @@ app.post("/compilecpp", (request, response) => {
         response.json({error: {createError: createError, copyError: copyError}});
     }
 
-    shell.cd("dockers");
     shell.rm('toCompile.cpp');
-    shell.cd("..");
-
-
-    /*let compilation;
-    let run;
-
-    let _container;
-
-    const docker = new Docker({socketPath:'var/run/docker.sock'});
-
-    docker.container.create({
-        Image: 'archlinux',
-        name: 'test'
-    })
-        .then(container => container.start())
-        .then(container => {
-            _container = container;
-            return container.exec.create({
-                AttachStdout: true,
-                AttachStderr: true,
-                Cmd: ['touch', 'toCompile.cpp']
-            })
-        })
-        .then(exec => exec.start({Detach: false}))
-        .then(() => _container.exec.create({
-                AttachStdout: true,
-                AttachStderr: true,
-                Cmd: [request.body.toCompile, '>', 'toCompile.cpp']
-            }))
-        .then(exec => exec.start({Detach: false}))
-        .then(() => _container.exec.create({
-            AttachStdout: true,
-            AttachStderr: true,
-            Cmd: ['clang++', '-o', 'compiled', 'toCompile.cpp']
-        }))
-        .then(exec => exec.start({Detach: false}))
-        .then(stream => {
-            stream.on('data', data => compilation = data);
-            stream.on('error', data => compilation = data);
-        })
-        .then(() => _container.exec.create({
-            AttachStdout: true,
-            AttachStderr: true,
-            Cmd: ['./compiled']
-        }))
-        .then(exec => exec.start({Detach: false}))
-        .then(stream => {
-            stream.on('data', data => run = data);
-            stream.on('error', data => run = data);
-        })
-        .then(() => _container.status())
-        .then(container => container.stop())
-        .then(container => container.delete({force: true}))
-        .then(() => {
-            response.status(200);
-            response.json({compilation: compilation, run: run});
-        })
-        .catch(err => {
-            console.log(err);
-            response.status(500);
-            response.json({error: err});
-        });*/
 });
 
 app.listen(8080);
