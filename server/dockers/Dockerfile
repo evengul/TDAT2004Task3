@@ -1,15 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:bionic
 
-RUN ls
+RUN apt-get update && apt-get install -y build-essential git cmake autoconf libtool pkg-config
 
-COPY . /usr/home/TDAT2004Task3/server/dockers
-WORKDIR /usr/home/TDAT2004Task3/server/dockers
+RUN cmake
 
-RUN apt update && apt upgrade -y
-
-RUN apt install build-essential -y
-
-RUN ls
-RUN gcc -o compiled toCompile.cpp
-RUN ls
 CMD ["./compiled"]
