@@ -48,8 +48,8 @@ app.post("/compilecpp", (request, response) => {
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
-    shell.ls();
-    shell.cat('toCompile.cpp');
+    shell.exec('ls');
+    shell.exec('cat toCompile.cpp');
     shell.rm('toCompile.cpp');
 });
 
