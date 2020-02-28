@@ -7,9 +7,9 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
-CMD cmake .
-CMD cmake --build .
+RUN cmake .
+RUN cmake --build .
 
-CMD ls
+RUN ls
 
-CMD ./compiled
+RUN ./compiled
