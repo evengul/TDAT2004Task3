@@ -5,7 +5,7 @@ WORKDIR /usr/home/TDAT2004Task3/server/dockers
 
 RUN apt update && apt upgrade -y
 
-RUN apt install build-essential
+RUN apt install build-essential -y
 
 CMD gcc -o compiled toCompile.cpp
 CMD ./compiled
