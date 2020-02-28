@@ -45,7 +45,7 @@ app.post("/compilecpp", (request, response) => {
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
-
+    shell.exec("cat toCompile.cpp");
     shell.rm('toCompile.cpp');
 });
 
