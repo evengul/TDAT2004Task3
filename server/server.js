@@ -32,13 +32,14 @@ app.post("/compilecpp", (request, response) => {
 
     if (!copyError && ! createError){
         const {output, error, code} = shell.exec("docker run hello-world");
+        console.log(output);
+        console.log(error);
+        console.log(code);
         if (!error && output){
-            console.log(output);
             response.status(200);
             response.json({result: output});
         }
         else{
-            console.log(error);
             response.status(406);
             response.json({error: error});
         }
