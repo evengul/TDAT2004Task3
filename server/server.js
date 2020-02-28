@@ -25,18 +25,20 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not create file: " + createError);
     }
 
-    const copyError = shell.exec( "echo \"" + request.body.toCompile + "\"" + " >> toCompile.cpp", {silent: true}).stderr;
+    const copyError = shell.exec( "echo \"" + request.body.toCompile + "\"" + " >> toCompile.cpp").stderr;
     if (copyError){
         console.log("Could not add content to file: " + copyError);
     }
 
     if (!copyError && ! createError){
-        const {output, error, code} = shell.exec("docker run hello-world", {silent: true});
+        const {output, error, code} = shell.exec("docker run hello-world");
         if (!error && output){
+            console.log(output);
             response.status(200);
             response.json({result: output});
         }
         else{
+            console.log(error);
             response.status(406);
             response.json({error: error});
         }
