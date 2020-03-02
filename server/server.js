@@ -18,6 +18,8 @@ app.get("/test", (request, response) => {
 
 app.post("/compilecpp", (request, response) => {
 
+    console.log(request.body.toCompile);
+
     shell.exec("docker build --build-arg CONTENT=\"" + request.body.toCompile + "\" -t my-gcc-app .");
 
     console.log("Request to compile C++");
