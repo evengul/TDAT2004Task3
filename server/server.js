@@ -30,31 +30,24 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not add content to file: " + copyError);
     }
 
-
-
     if (!copyError && ! createError){
-        console.log("Now running the docker file");
-        console.log(shell.exec("docker run --name=compiler -a STDOUT -a STDERR my-gcc-app"));
-        //shell.exec("docker inspect --format='{{.LogPath}}' compiler | cat");
-        console.log("The file has run");
-        shell.exec("docker rm compiler", {silent: true});
-        console.log(output);
-        console.log(error);
-        console.log(code);
-        if (!error && output){
+        let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app");
+        console.log(output.stdout);
+        console.log(output.stderr);
+        console.log(output.code);
+        if (output.stderr === '' && output.code === 0){
             response.status(200);
             response.json({result: output});
         }
         else{
             response.status(406);
-            response.json({error: error});
+            response.json({error: output.stderr});
         }
     }
     else{
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
-    shell.exec('cat toCompile.cpp');
 });
 
 app.listen(8080);
