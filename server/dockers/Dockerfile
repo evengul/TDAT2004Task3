@@ -12,6 +12,4 @@ RUN touch toCompile.cpp
 
 RUN echo $CONTENT >| toCompile.cpp
 
-RUN g++ -o compiled toCompile.cpp
-
-CMD ["./compiled"]
+CMD["/bin/bash", "./run.sh"]
