@@ -34,8 +34,7 @@ app.post("/compilecpp", (request, response) => {
 
     if (!copyError && ! createError){
         console.log("Now running the docker file");
-        shell.exec("ls");
-        const {output, error, code} = shell.exec("docker run --name=compiler -d my-gcc-app");
+        const {output, error, code} = shell.exec("docker run --rm --name=compiler -d my-gcc-app");
         console.log("The file has run");
         console.log(output);
         console.log(error);
@@ -53,7 +52,6 @@ app.post("/compilecpp", (request, response) => {
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
-    shell.exec('ls');
     shell.exec('cat toCompile.cpp');
 });
 
