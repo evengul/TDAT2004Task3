@@ -7,6 +7,12 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
+RUN rm CMakeCache.txt
+RUN rm Makefile
+RUN rm compiled
+RUN rm -r CMakeFiles
+RUN rm cmake_install.cmake
+
 RUN cmake .
 RUN cmake --build .
 
