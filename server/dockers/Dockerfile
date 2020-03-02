@@ -14,6 +14,4 @@ RUN echo $CONTENT >| toCompile.cpp
 
 RUN g++ -o compiled toCompile.cpp
 
-CMD ["cat", "toCompile.cpp"]
-
 CMD ["./compiled"]
