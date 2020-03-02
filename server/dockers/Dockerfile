@@ -13,8 +13,8 @@ RUN rm compiled
 RUN rm -r CMakeFiles
 RUN rm cmake_install.cmake
 
-RUN cmake .
-RUN cmake --build .
+CMD ["cmake", "."]
+RUN ["cmake", "--build", "."]
 
 RUN ls
 
