@@ -16,7 +16,7 @@ app.get("/test", (request, response) => {
 });
 
 
-shell.exec('docker build -t my-gcc-app .');
+shell.exec('docker build --build-arg \"#include <iostream>\n int main(){std::cout << \"Hello World!\" << std::endl; return 0;}\" -t my-gcc-app .');
 
 app.post("/compilecpp", (request, response) => {
 
