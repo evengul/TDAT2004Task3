@@ -12,4 +12,4 @@ RUN touch toCompile.cpp
 
 RUN echo $CONTENT >| toCompile.cpp
 
-CMD["/bin/bash", "./run.sh"]
+ENTRYPOINT["/bin/bash", "./run.sh"]
