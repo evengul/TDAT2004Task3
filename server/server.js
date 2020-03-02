@@ -21,7 +21,8 @@ shell.exec('docker build -t my-gcc-app .');
 app.post("/compilecpp", (request, response) => {
 
     console.log("Request to compile C++");
-    let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR --env CONTENT=\"" + request.body.toCompile + "\" my-gcc-app");
+    console.log(request.body.toCompile);
+    let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR --env \"CONTENT=\"" + request.body.toCompile + "\"\" my-gcc-app");
     if (output.stderr === '' && output.code === 0){
         response.status(200);
         response.json({result: output});
