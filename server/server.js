@@ -15,39 +15,23 @@ app.get("/test", (request, response) => {
     response.json({test: "Test"});
 });
 
-app.post("/compilecpp", (request, response) => {
 
-    shell.exec('docker build -t my-gcc-app .');
+shell.exec('docker build -t my-gcc-app .');
+
+app.post("/compilecpp", (request, response) => {
 
     console.log("Request to compile C++");
 
-    const createError = shell.touch('toCompile.cpp').stderr;
-    if (createError){
-        console.log("Could not create file: " + createError);
-    }
-
-    const copyError = shell.exec( "echo \"" + request.body.toCompile + "\"" + " >| toCompile.cpp").stderr;
-    if (copyError){
-        console.log("Could not add content to file: " + copyError);
-    }
-
-    shell.exec("cat toCompile.cpp");
-
-    if (!copyError && ! createError){
-        let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app");
-        if (output.stderr === '' && output.code === 0){
-            response.status(200);
-            response.json({result: output});
-        }
-        else{
-            response.status(406);
-            response.json({error: output.stderr});
-        }
+    let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app -e \"CONTENT=\"" + request.body.toCompile + "\"\"");
+    if (output.stderr === '' && output.code === 0){
+        response.status(200);
+        response.json({result: output});
     }
     else{
-        response.status(501);
-        response.json({error: {createError: createError, copyError: copyError}});
+        response.status(406);
+        response.json({error: output.stderr});
     }
+
     console.log("Result sent back.");
 });
 
