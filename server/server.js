@@ -15,10 +15,8 @@ app.get("/test", (request, response) => {
     response.json({test: "Test"});
 });
 
-let initCPP = "#include <iostream> \n int main(){std::cout << \"Hello World!\" << std::endl; return 0;}";
 
-
-shell.exec('docker build --build-arg CONTENT=\"' + initCPP + '\" -t my-gcc-app .');
+shell.exec('docker build -t my-gcc-app .');
 
 app.post("/compilecpp", (request, response) => {
 
