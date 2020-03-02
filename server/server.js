@@ -10,7 +10,7 @@ app.use(cors());
 
 shell.cd('dockers');
 
-shell.exec('docker build my-gcc-app .');
+shell.exec('docker build -t my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
