@@ -30,11 +30,10 @@ app.post("/compilecpp", (request, response) => {
         console.log("Could not add content to file: " + copyError);
     }
 
+    shell.exec("cat toCompile.cpp");
+
     if (!copyError && ! createError){
         let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app");
-        console.log(output.stdout);
-        console.log(output.stderr);
-        console.log(output.code);
         if (output.stderr === '' && output.code === 0){
             response.status(200);
             response.json({result: output});
@@ -48,6 +47,7 @@ app.post("/compilecpp", (request, response) => {
         response.status(501);
         response.json({error: {createError: createError, copyError: copyError}});
     }
+    console.log("Result sent back.");
 });
 
 app.listen(8080);
