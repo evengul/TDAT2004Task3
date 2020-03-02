@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y build-essential git cmake autoconf libt
 
 ARG CONTENT="#include <iostream>\n int main(){std::cout << \"Hello World!\" << std::endl; return 0;}"
 
+
+
 COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
