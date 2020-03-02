@@ -1,0 +1,3 @@
+/home/evengul/TDAT2004Task3/server/dockers/CMakeFiles/rebuild_cache.dir
+/home/evengul/TDAT2004Task3/server/dockers/CMakeFiles/compiled.dir
+/home/evengul/TDAT2004Task3/server/dockers/CMakeFiles/edit_cache.dir
