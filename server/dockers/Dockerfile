@@ -12,6 +12,8 @@ RUN touch toCompile.cpp
 
 RUN echo $CONTENT >| toCompile.cpp
 
+RUN echo toCompile.cpp
+
 RUN g++ -o compiled toCompile.cpp
 
 CMD ["./compiled"]
