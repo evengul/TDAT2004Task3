@@ -24,6 +24,7 @@ app.post("/compilecpp", (request, response) => {
 
     console.log("Request to compile C++");
     let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app");
+    console.log(output);
     if (output.stderr === '' && output.code === 0){
         response.status(200);
         response.json({result: output});
