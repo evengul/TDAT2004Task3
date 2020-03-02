@@ -10,7 +10,7 @@ app.use(cors());
 
 shell.cd('dockers');
 
-shell.exec('docker build -i my-gcc-app .');
+shell.exec('docker build my-gcc-app .');
 
 app.get("/test", (request, response) => {
     response.status(200);
@@ -35,7 +35,7 @@ app.post("/compilecpp", (request, response) => {
     if (!copyError && ! createError){
         console.log("Now running the docker file");
         shell.exec("ls");
-        const {output, error, code} = shell.exec("docker run -a stdin -a stdout -a stderr -i my-gcc-app");
+        const {output, error, code} = shell.exec("docker run --rm -a stdin -a stdout -a stderr -i my-gcc-app");
         console.log(output);
         console.log(error);
         console.log(code);
