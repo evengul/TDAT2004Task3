@@ -10,14 +10,15 @@ app.use(cors());
 
 shell.cd('dockers');
 
-shell.exec('docker build -t my-gcc-app .');
-
 app.get("/test", (request, response) => {
     response.status(200);
     response.json({test: "Test"});
 });
 
 app.post("/compilecpp", (request, response) => {
+
+    shell.exec('docker build -t my-gcc-app .');
+
     console.log("Request to compile C++");
 
     const createError = shell.touch('toCompile.cpp').stderr;
