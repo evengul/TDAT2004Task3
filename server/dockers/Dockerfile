@@ -16,4 +16,4 @@ RUN echo toCompile.cpp
 
 RUN g++ -o compiled toCompile.cpp
 
-CMD ["./compiled"]
+CMD ["echo $CONTENT && ./compiled"]
