@@ -10,7 +10,13 @@ app.use(cors());
 
 shell.cd('dockers');
 
-app.post("/runpython", (request, response) => {
+app.get("/test", (request, response) => {
+   response.json({status: "Good"});
+   response.status(200);
+});
+
+
+app.post("/run-python", (request, response) => {
 
     console.log(request.body.toRun);
 
