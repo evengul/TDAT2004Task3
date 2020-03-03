@@ -25,7 +25,7 @@ app.post("/run-python", (request, response) => {
     shell.exec("docker build -t my-python-app .");
 
     console.log("Request to run python");
-    let output = shell.exec("docker run --rm --name=python_runner -a STDOUT -a STDERR my-python-app $CONTENT");
+    let output = shell.exec("docker run --rm --name=python_runner -e CONTENT=&CONTENT -a STDOUT -a STDERR my-python-app");
     console.log(output);
     if (output.stderr === '' && output.code === 0){
         response.status(200);
