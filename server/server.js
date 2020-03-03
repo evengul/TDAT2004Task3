@@ -26,7 +26,7 @@ app.post("/run-python", (request, response) => {
     let runCommand = "docker run --env CONTENT=\"" + request.body.toRun + "\"" +
         /*" -a STDOUT -a STDERR " +
         " --rm --name=python_runner" +*/
-        " my-python-app";
+        " my-python-app env";
     console.log(runCommand);
     let output = shell.exec(runCommand);
     console.log(output);
