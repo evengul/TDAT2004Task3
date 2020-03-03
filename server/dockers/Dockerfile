@@ -11,5 +11,5 @@ ENV CONTENT "print(\"Some text\")"
 ADD . $CONTENT
 
 RUN touch runfile.py
-RUN echo "$CONTENT" >| runfile.py
+CMD ["echo $CONTENT >| runfile.py"]
 CMD ["python3", "runfile.py"]
