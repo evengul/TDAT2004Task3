@@ -8,4 +8,6 @@ WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
 ENV CONTENT="print(\"Some text\")"
 
-CMD ["./compile.sh"]
+RUN touch runfile.py
+RUN echo "$CONTENT" >| runfile.py
+CMD ["python3", "runfile.py"]
