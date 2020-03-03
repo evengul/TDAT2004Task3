@@ -6,7 +6,7 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
-ENV CONTENT="print(\"Some text\")"
+ENV CONTENT<>
 
 RUN touch runfile.py
 RUN echo "$CONTENT" >| runfile.py
