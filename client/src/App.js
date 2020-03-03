@@ -8,28 +8,25 @@ export class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            toCompile: "int main(){\n" +
-                "\tcout << \"Hello World\";\n" +
-                "\treturn 0;\n" +
-                "}"
+            toRun: "print(\"Hello World\")"
         };
     }
     render(){
         return (
           <div>
-              <textarea className={"compileText"} defaultValue={this.state.toCompile} onChange={this.setToCompile}/>
-              <button onClick={this.compile}>Compile!</button>
+              <textarea className={"runText"} defaultValue={this.state.toRun} onChange={this.setToRun}/>
+              <button onClick={this.run}>Compile!</button>
               <textarea disabled={true}/>
           </div>
         );
     }
 
-    setToCompile(event) {
-        this.setState({toCompile: event.target.value});
+    setToRun(event) {
+        this.setState({toRun: event.target.value});
     };
 
-    compile = () => {
-        Compile.compileCPP(this.state.toCompile, () => {
+    run = () => {
+        Compile.runPython(this.state.toCompile, () => {
             console.log("React callback");
         });
     }

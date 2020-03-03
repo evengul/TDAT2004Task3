@@ -10,22 +10,16 @@ app.use(cors());
 
 shell.cd('dockers');
 
-app.get("/test", (request, response) => {
-    response.status(200);
-    response.json({test: "Test"});
-});
+app.post("/runpython", (request, response) => {
 
+    console.log(request.body.toRun);
 
-app.post("/compilecpp", (request, response) => {
+    shell.exec("CONTENT=\"" + request.body.toRun + "\"");
 
-    console.log(request.body.toCompile);
+    shell.exec("docker build -t my-python-app .");
 
-    shell.exec("CONTENT=\"" + request.body.toCompile + "\"");
-
-    shell.exec("docker build -t my-gcc-app .");
-
-    console.log("Request to compile C++");
-    let output = shell.exec("docker run --rm --name=compiler -a STDOUT -a STDERR my-gcc-app $CONTENT");
+    console.log("Request to run python");
+    let output = shell.exec("docker run --rm --name=python_runner -a STDOUT -a STDERR my-python-app $CONTENT");
     console.log(output);
     if (output.stderr === '' && output.code === 0){
         response.status(200);
@@ -33,7 +27,7 @@ app.post("/compilecpp", (request, response) => {
     }
     else{
         response.status(406);
-        response.json({error: output.stderr});
+        response.json({error: output.stderr, output: output.stdout});
     }
 
     console.log("Result sent back.");

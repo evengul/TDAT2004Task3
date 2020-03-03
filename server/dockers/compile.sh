@@ -1,7 +1,4 @@
 #!/bin/bash
-touch toCompile.cpp
-echo "$CONTENT" >| toCompile.cpp
-g++ -o compiled toCompile.cpp
-./compiled
-rm compiled
-rm toCompile.cpp
+touch runfile.py
+echo "$CONTENT" >| runfile.py
+python3 runfile.py
