@@ -6,5 +6,4 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
-
-ENTRYPOINT ["./compile.sh"]
+ENTRYPOINT ["sudo ./compile.sh"]
