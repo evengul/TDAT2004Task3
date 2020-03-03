@@ -9,6 +9,8 @@ WORKDIR /usr/home/TDAT2003Task3/server/dockers
 ARG CONTENT="print(\"Some text\")"
 ENV CONTENT="${CONTENT}"
 
+ADD . $CONTENT
+
 CMD ["touch runfile.py"]
 CMD ["echo $CONTENT >| runfile.py"]
 CMD ["python3", "runfile.py"]
