@@ -11,4 +11,4 @@ ENV CONTENT="${CONTENT}"
 
 ADD . $CONTENT
 
-CMD ["echo $CONTENT >| runfile.py && python3 runfile.py"]
+CMD ["python3 runfile.py"]

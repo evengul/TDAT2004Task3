@@ -20,6 +20,10 @@ app.post("/run-python", (request, response) => {
 
     console.log(request.body.toRun);
 
+    shell.exec("CONTENT=\\\"" + request.body.toRun + "\\\"");
+
+    shell.exec("echo $CONTENT >| runfile.py");
+
     shell.exec("docker build --build-arg CONTENT=\"" + request.body.toRun + "\" -t my-python-app .");
 
     console.log("Request to run python");
