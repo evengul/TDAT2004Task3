@@ -6,9 +6,4 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
-ARG CONTENT="print(\"Some text\")"
-ENV CONTENT="${CONTENT}"
-
-ADD . $CONTENT
-
-CMD ["python3"]
+CMD ["python3 -V"]
