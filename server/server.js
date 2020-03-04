@@ -36,7 +36,7 @@ app.post("/run-python", (request, response) => {
         response.json({result: output});
     }
     else{
-        response.status(406);
+        response.status(200);
         response.json({error: output.stderr, output: output.stdout});
     }
 

@@ -22,9 +22,9 @@ export class Compile{
         let header = {
             "Content-Type": "application/json"
         };
+        console.log(toRun);
         axios.post("http://localhost:8080/run-python", body, {headers: header})
-            .then(res => console.log(res))
-            .then(() => callback())
-            .catch(err => console.log(err));
+            .then(res => callback(res))
+            .catch(err => callback(err));
     }
 }

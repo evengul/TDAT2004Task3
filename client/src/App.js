@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
 import {Compile} from "./compileService";
 
 export class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            toRun: "print(\"Hello World\")"
+            toRun: "print(\\\"Some message\\\")",
+            result: ""
         };
     }
     render(){
@@ -16,7 +15,7 @@ export class App extends Component{
           <div>
               <textarea className={"runText"} defaultValue={this.state.toRun} onChange={this.setToRun}/>
               <button onClick={this.run}>Compile!</button>
-              <textarea disabled={true}/>
+              <textarea disabled={true} value={this.state.result}/>
           </div>
         );
     }
@@ -26,8 +25,9 @@ export class App extends Component{
     };
 
     run = () => {
-        Compile.runPython(this.state.toCompile, () => {
-            console.log("React callback");
+        Compile.runPython(this.state.toRun, (data) => {
+            console.log(data);
+
         });
     }
 }
