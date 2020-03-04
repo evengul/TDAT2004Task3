@@ -20,7 +20,9 @@ app.post("/run-python", (request, response) => {
 
     console.log(request.body.toRun);
 
-    shell.exec("CONTENT=\\\"" + request.body.toRun + "\\\"");
+
+
+    shell.exec("CONTENT=\"" + request.body.toRun + "\"");
 
     shell.exec("echo $CONTENT >| runfile.py");
 
