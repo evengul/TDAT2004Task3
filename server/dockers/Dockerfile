@@ -13,4 +13,5 @@ ADD . $CONTENT
 
 CMD ["touch runfile.py"]
 CMD ["echo $CONTENT >| runfile.py"]
+CMD ["cat runfile.py"]
 CMD ["python3", "runfile.py"]
