@@ -11,4 +11,4 @@ ENV CONTENT="${CONTENT}"
 
 ADD . $CONTENT
 
-CMD ["cat runfile.py"]
+CMD ["python3"]
