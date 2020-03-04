@@ -21,7 +21,7 @@ export class App extends Component{
         );
     }
 
-    setToRun(event) {
+    setToRun = (event) => {
         this.setState({toRun: event.target.value});
     };
 
