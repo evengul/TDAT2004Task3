@@ -11,4 +11,4 @@ ENV CONTENT="${CONTENT}"
 
 ADD . $CONTENT
 
-ENTRYPOINT ["python3 runfile.py"]
+ENTRYPOINT ["python3", "runfile.py"]
