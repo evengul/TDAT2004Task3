@@ -6,4 +6,4 @@ COPY . /usr/home/TDAT2003Task3/server/dockers
 
 WORKDIR /usr/home/TDAT2003Task3/server/dockers
 
-CMD ["ls | cat"]
+CMD ["python3", "runfile.py"]
